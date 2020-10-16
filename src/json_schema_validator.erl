@@ -68,10 +68,12 @@ new_validator(Schema, Value, Options) ->
   BaseURI = case maps:find(base_uri, Options) of
               {ok, URIString} when is_binary(URIString) ->
                 case uri:parse(URIString) of
-                  {ok, URI} ->
+                  {ok, URI = #{scheme := _}} ->
                     URI;
-                  Error ->
-                    throw(Error)
+                  {ok, _} ->
+                    throw({error, missing_base_uri_scheme});
+                  {error, Reason} ->
+                    throw({error, Reason})
                 end;
               {ok, URI} ->
                 URI;

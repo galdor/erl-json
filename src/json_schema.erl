@@ -115,7 +115,8 @@
                               schema_path => json_pointer:pointer(),
                               keyword => atom()}.
 -type validation_errors() :: [validation_error()].
--type validation_error_reason() :: invalid_value
+-type validation_error_reason() :: missing_base_uri_scheme
+                                 | invalid_value
                                  | {invalid_value, validation_errors()}
                                  | {missing_member, binary()}
                                  | {invalid_format, term()}
