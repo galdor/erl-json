@@ -1,0 +1,4 @@
+[{<<"uri">>,
+  {git,"https://github.com/galdor/erl-uri.git",
+       {ref,"0fb5142f8df2193bc472849d7fed1a4858416b37"}},
+  0}].

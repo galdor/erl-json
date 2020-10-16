@@ -12,15 +12,17 @@
 %% OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 %% PERFORMANCE OF THIS SOFTWARE.
 
-{application, json,
- [{description, "Utilities for the JSON data format."},
-  {vsn, "1.1.0"},
-  {registered, []},
-  {applications,
-   [kernel,
-    stdlib,
-    uri]},
-  {env, []},
-  {modules, []},
+-module(json_schema_utils_test).
 
-  {licenses, ["ISC"]}]}.
+-include_lib("eunit/include/eunit.hrl").
+
+unique_values_test_() ->
+  [?_assert(json_schema_utils:unique_values([])),
+   ?_assert(json_schema_utils:unique_values([1])),
+   ?_assert(json_schema_utils:unique_values([1, 2, 3])),
+   ?_assertNot(json_schema_utils:unique_values([1, 1.0])),
+   ?_assertNot(json_schema_utils:unique_values([1, 1])),
+   ?_assertNot(json_schema_utils:unique_values([1, 2, 2, 3])),
+   ?_assertNot(json_schema_utils:unique_values([[1], [1.0]])),
+   ?_assertNot(json_schema_utils:unique_values(
+              [#{<<"a">> => 1}, #{<<"a">> => 1.0}]))].
